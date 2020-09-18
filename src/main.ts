@@ -3,10 +3,15 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import Vuelidate from "vuelidate";
+import VueSimpleAlert from "vue-simple-alert";
+import Toasted from "vue-toasted";
+
 Vue.config.productionTip = false;
 
-import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
+Vue.use(VueSimpleAlert);
+Vue.use(Toasted);
 
 new Vue({
   router,

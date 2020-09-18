@@ -6,10 +6,8 @@ const state = () => ({
 });
 
 export const actions = {
-  createUser(context, payload: any) {
-    return api.post(`/register`, payload).then((response: any) => {
-      context.commit("UPDATE_USUARIO", response.data);
-    });
+  createUser(context: any, payload: any) {
+    return api.post(`/register`, payload).then((response: any) => response);
   },
   loginUser(context: any, payload: any) {
     return api.post(`/login`, payload).then((response: any) => {

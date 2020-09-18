@@ -6,37 +6,46 @@
         type="name"
         name="name"
         id="name"
-        v-model="userdata.name"
+        :class="{ 'has-error': $v.name.$error }"
+        @change="$v.name.$touch()"
+        v-model="name"
         placeholder="Nome completo"
       />
       <input
         type="email"
         name="email"
+        :class="{ 'has-error': $v.email.$error }"
         id="email"
-        v-model="userdata.email"
+        @change="$v.email.$touch()"
+        v-model="email"
         placeholder="Email"
       />
       <input
         type="password"
         name="password"
+        :class="{ 'has-error': $v.password.$error }"
         id="password"
-        v-model="userdata.password"
+        @change="$v.password.$touch()"
+        v-model="password"
         placeholder="Senha"
       />
       <input
-        type="password_confirmation"
+        type="password"
         name="password_confirmation"
+        :class="{ 'has-error': $v.password_confirmation.$error }"
         id="password_confirmation"
-        v-model="userdata.password_confirmation"
+        @change="$v.password_confirmation.$touch()"
+        v-model="password_confirmation"
         placeholder="Digite a senha novamente"
       />
-      <input
+      <!-- <input
         type="cpf"
         name="cpf"
+        :class="{'has-error' : $v.password_confirmation.$error}"
         id="cpf"
-        v-model="userdata.cpf"
+        v-model.trim="cpf"
         placeholder="CPF"
-      />
+      /> -->
       <button class="btn-outline" @click.prevent="storeNewUser">
         FINALIZAR CADASTRO
       </button>
@@ -49,36 +58,60 @@
 // import { api } from "@/services/api";
 import { mapActions } from "vuex";
 
-import { required, minLength /*, between*/ } from "vuelidate/lib/validators";
+import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
+import api from "../../../../app/src/services/api";
 
 export default {
   name: "SignUp",
   data() {
     return {
-      userdata: {
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-        cpf: ""
-      }
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: ""
+      // cpf: ""
     };
   },
   methods: {
     ...mapActions("auth", ["createUser"]),
     storeNewUser() {
       console.log("submit!", this.$v);
-      this.$v.$touch();
+
+      if (!this.$v.$invalid) {
+        this.$toasted.show("Opa não");
+        this.createUser({
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation
+        })
+          .then(response => {
+            this.$toasted.show("Cadastro realizado com sucesso!");
+            this.$router.push("Login");
+          })
+          .catch(e => console.log("ERROR", e));
+      } else {
+        this.$toasted.show("Opa");
+        this.$v.$touch();
+      }
     }
   },
   validations: {
     name: {
       required,
-      minLength: minLength(4)
+      minLength: minLength(5)
     },
     email: {
       required,
-      minLength: minLength(4)
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(6)
+    },
+    password_confirmation: {
+      required,
+      sameAs: sameAs("password")
     }
   }
 };
@@ -106,5 +139,9 @@ form {
   max-width: 300px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.has-error {
+  border: solid red 1px;
 }
 </style>
