@@ -45,7 +45,7 @@
         id="cpf"
         v-model.trim="cpf"
         placeholder="CPF"
-      /> -->
+      />-->
       <button class="btn-outline" @click.prevent="storeNewUser">
         FINALIZAR CADASTRO
       </button>
@@ -78,7 +78,6 @@ export default {
       console.log("submit!", this.$v);
 
       if (!this.$v.$invalid) {
-        this.$toasted.show("Opa não");
         this.createUser({
           name: this.name,
           email: this.email,
@@ -86,12 +85,16 @@ export default {
           password_confirmation: this.password_confirmation
         })
           .then(response => {
-            this.$toasted.show("Cadastro realizado com sucesso!");
+            this.$toast.open("Cadastro realizado com sucesso!");
             this.$router.push("Login");
           })
-          .catch(e => console.log("ERROR", e));
+          .catch(e => {
+            this.$toast.open({
+              message: e.response.data[0].message,
+              type: "error"
+            });
+          });
       } else {
-        this.$toasted.show("Opa");
         this.$v.$touch();
       }
     }
