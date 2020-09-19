@@ -94,6 +94,10 @@ textarea:focus {
   border-color: #42b983;
 }
 
+.input-has-error {
+  border: solid red 1px;
+}
+
 /* 
 #nav a.router-link-exact-active {
   color: #42b983;

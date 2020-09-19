@@ -7,7 +7,9 @@
         type="email"
         name="email"
         id="email"
-        v-model="login.email"
+        :class="{ 'input-has-error': $v.email.$error }"
+        @change="$v.email.$touch()"
+        v-model="email"
         placeholder="Email"
       />
       <!-- <label for="password">Senha</label> -->
@@ -15,7 +17,9 @@
         type="password"
         name="password"
         id="password"
-        v-model="login.password"
+        :class="{ 'input-has-error': $v.password.$error }"
+        @change="$v.password.$touch()"
+        v-model="password"
         placeholder="Senha"
       />
       <button class="btn-outline" @click.prevent="logar">Logar</button>
@@ -32,25 +36,36 @@
 </template>
 
 <script>
+import { required, minLength, email } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 export default {
   name: "Login",
   data() {
     return {
-      login: {
-        email: "",
-        password: ""
-      },
+      email: "",
+      password: "",
       erros: []
     };
   },
   methods: {
     ...mapActions("auth", ["loginUser"]),
     logar() {
-      this.loginUser(this.login).then(response => {
-        console.log("AUTH", response);
-        this.$router.push("/panel");
-      });
+      if (!this.$v.$invalid) {
+        this.loginUser({ email: this.email, password: this.password })
+          .then(response => {
+            console.log("AUTH", response);
+            this.$toast.open("Login realizado com sucesso!");
+            this.$router.push("/panel");
+          })
+          .catch(e => {
+            this.$toast.open({
+              message: e.response.data.message,
+              type: "error"
+            });
+          });
+      } else {
+        this.$v.$touch();
+      }
       // this.erros = [];
       // this.$store
       //   .dispatch("logarUsuario", this.login)
@@ -75,6 +90,16 @@ export default {
   },
   created() {
     document.title = "Login";
+  },
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(6)
+    }
   }
 };
 </script>

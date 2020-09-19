@@ -6,7 +6,7 @@
         type="name"
         name="name"
         id="name"
-        :class="{ 'has-error': $v.name.$error }"
+        :class="{ 'input-has-error': $v.name.$error }"
         @change="$v.name.$touch()"
         v-model="name"
         placeholder="Nome completo"
@@ -14,7 +14,7 @@
       <input
         type="email"
         name="email"
-        :class="{ 'has-error': $v.email.$error }"
+        :class="{ 'input-has-error': $v.email.$error }"
         id="email"
         @change="$v.email.$touch()"
         v-model="email"
@@ -23,7 +23,7 @@
       <input
         type="password"
         name="password"
-        :class="{ 'has-error': $v.password.$error }"
+        :class="{ 'input-has-error': $v.password.$error }"
         id="password"
         @change="$v.password.$touch()"
         v-model="password"
@@ -32,7 +32,7 @@
       <input
         type="password"
         name="password_confirmation"
-        :class="{ 'has-error': $v.password_confirmation.$error }"
+        :class="{ 'input-has-error': $v.password_confirmation.$error }"
         id="password_confirmation"
         @change="$v.password_confirmation.$touch()"
         v-model="password_confirmation"
@@ -41,7 +41,7 @@
       <!-- <input
         type="cpf"
         name="cpf"
-        :class="{'has-error' : $v.password_confirmation.$error}"
+        :class="{'input-has-error' : $v.password_confirmation.$error}"
         id="cpf"
         v-model.trim="cpf"
         placeholder="CPF"
@@ -142,9 +142,5 @@ form {
   max-width: 300px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.has-error {
-  border: solid red 1px;
 }
 </style>
