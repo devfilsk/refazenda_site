@@ -59,7 +59,7 @@
 import { mapActions } from "vuex";
 
 import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
-import api from "../../../../app/src/services/api";
+import api from "@/services/api";
 
 export default {
   name: "SignUp",
