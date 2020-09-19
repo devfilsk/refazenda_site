@@ -55,17 +55,17 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.login)) {
-    if (!window.localStorage.token) {
-      // next("/login");
-      router.push({ path: "/login" });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(record => record.meta.login)) {
+//     if (!window.localStorage.token) {
+//       // next("/login");
+//       router.push({ path: "/login" });
+//     } else {
+//       next();
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;
