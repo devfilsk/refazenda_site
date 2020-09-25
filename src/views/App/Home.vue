@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Home autenticada</h1>
+    <!-- <h1>Home autenticada</h1> -->
     <!-- <transition mode="out-in"> -->
     <router-view></router-view>
     <!-- </transition> -->

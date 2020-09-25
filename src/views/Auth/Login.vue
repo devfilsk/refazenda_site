@@ -24,6 +24,9 @@
       />
       <button class="btn-outline" @click.prevent="logar">Logar</button>
       <!-- <ErroNotificacao :erros="erros" /> -->
+      <router-link class="forgot-link" :to="{ name: 'send-forgot-password' }"
+        >Esqueceu a senha?</router-link
+      >
     </form>
     <!-- <p class="perdeu">
       <a
@@ -127,5 +130,12 @@ form {
   max-width: 300px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.forgot-link {
+  display: flex;
+  align-self: flex-start;
+  margin-top: 20px;
+  color: #42b983;
 }
 </style>

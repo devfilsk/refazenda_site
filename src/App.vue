@@ -55,6 +55,13 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 40px;
+  color: #42b983;
+}
+
 img {
   max-width: 100%;
   display: block;
