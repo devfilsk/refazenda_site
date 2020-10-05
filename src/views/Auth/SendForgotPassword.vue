@@ -1,25 +1,66 @@
 <template>
-  <section class="login">
-    <h1>Recuperar sua senha</h1>
-    <p>
-      Digite o seu email e enviaremos um link para que você possa alterar a sua
-      senha.
-    </p>
-    <form>
-      <!-- <label for="email">Email</label> -->
-      <input
-        type="email"
-        name="email"
-        id="email"
-        :class="{ 'input-has-error': $v.email.$error }"
-        @change="$v.email.$touch()"
-        v-model="email"
-        placeholder="Email"
-      />
-      <button class="btn-outline" @click.prevent="enviarEmail">
-        Enviar email
-      </button>
-    </form>
+  <section>
+    <div class="h-100 bg-plum-plate bg-animation">
+      <div class="d-flex h-100 justify-content-center align-items-center">
+        <b-col md="6" class="mx-auto app-login-box">
+          <div class="app-logo-inverse mx-auto mb-3" />
+
+          <div class="modal-dialog w-100">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="h5 modal-title">
+                  Esqueceu a senha?
+                  <h6 class="mt-1 mb-0 opacity-8">
+                    <span>Use o formulário abaixo para recupera-la.</span>
+                  </h6>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <Form>
+                    <b-row form>
+                      <b-col md="12">
+                        <b-form-group>
+                          <Label for="email">Email</Label>
+                          <b-form-input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Digite o seu email..."
+                            :class="{ 'input-has-error': $v.email.$error }"
+                            @change="$v.email.$touch()"
+                            v-model="email"
+                          />
+                        </b-form-group>
+                      </b-col>
+                    </b-row>
+                  </Form>
+                </div>
+                <div class="divider" />
+                <h6 class="mb-0">
+                  <router-link class="text-primary" :to="{ name: 'Login' }"
+                    >Acessar uma conta já existne</router-link
+                  >
+                </h6>
+              </div>
+              <div class="modal-footer clearfix">
+                <div class="float-right">
+                  <b-button
+                    variant="primary"
+                    size="lg"
+                    @click.prevent="enviarEmail"
+                    >Recuperar Senha</b-button
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center text-white opacity-8 mt-3">
+            Copyright &copy; Refazenda 2020
+          </div>
+        </b-col>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -46,22 +87,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.login {
-  min-width: 500px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-h1 {
-  text-align: center;
-  font-size: 2rem;
-  margin-top: 40px;
-  color: #42b983;
-}
-
-form {
-  display: grid;
-}
-</style>

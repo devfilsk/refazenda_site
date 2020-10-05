@@ -2,10 +2,10 @@
   <header>
     <nav>
       <router-link to="/" class="logo">
-        <img src="@/assets/logo.svg" alt="ReFazenda" />
+        <img src="@/assets/images/logo.svg" alt="ReFazenda" />
       </router-link>
 
-      <ul id="menu-bar">
+      <!-- <ul id="menu-bar">
         <li class="item-menu">
           <a href="http://dev-center.com">Fazenda</a>
           <transition name="fade">
@@ -36,22 +36,26 @@
             </li>
           </ul>
         </li>
-      </ul>
+      </ul> -->
 
       <div class="actions-auth">
         <router-link
           v-if="!$store.state.auth.login || $route.path === '/'"
           class="btn-outline"
           :to="{ name: 'signup' }"
-        >Cadastre-se</router-link>
+          >Cadastre-se</router-link
+        >
 
         <router-link
           v-if="!$store.state.auth.login || $route.path === '/'"
           class="btn-outline"
           :to="{ name: 'Login' }"
-        >Entrar</router-link>
+          >Entrar</router-link
+        >
 
-        <button v-else class="btn-outline" @click.prevent="deslogar">Deslogar</button>
+        <button v-else class="btn-outline" @click.prevent="deslogar">
+          Deslogar
+        </button>
       </div>
 
       <!-- <router-link  class="btn" to="/login">Vender / Login</router-link> -->

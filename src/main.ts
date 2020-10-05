@@ -3,6 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import BootstrapVue from "bootstrap-vue"
+import Default from '@/Layout/Wrappers/baseLayout.vue';
+import Pages from '@/Layout/Wrappers/pagesLayout.vue';
+
+Vue.use(BootstrapVue);
+Vue.component('default-layout', Default);
+Vue.component('userpages-layout', Pages);
+
 import Vuelidate from "vuelidate";
 import VueSimpleAlert from "vue-simple-alert";
 // import Toasted from "vue-toasted";

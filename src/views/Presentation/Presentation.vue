@@ -1,12 +1,17 @@
 <template>
-  <div class="container">
+  <div class="">
+    <Header />
     <h1>Apresentação do sistema e bla bla bla</h1>
   </div>
 </template>
 
 <script>
+import Header from "@/components/Layout/Header";
 export default {
   name: "Dashboard",
+  components: {
+    Header
+  },
   created() {
     this.get();
   },

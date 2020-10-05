@@ -1,21 +1,31 @@
 <template>
   <div id="app">
-    <Header />
-    <router-view />
+    <component :is="layout">
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </component>
   </div>
 </template>
 
 <script>
-import Header from "@/components/Layout/Header.vue"; // @ is an alias to /src
+const default_layout = "default";
+
 export default {
-  name: "App",
-  components: {
-    Header
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || default_layout) + "-layout";
+    }
   }
 };
 </script>
+
+<style lang="scss">
+@import "assets/base.scss";
+</style>
+
 <style>
-#app {
+/* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -47,7 +57,6 @@ ul {
 body {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   color: #345;
-  /* background: url("./assets/pattern.svg") repeat top; */
 }
 
 a {
@@ -101,10 +110,10 @@ textarea:focus {
   border-color: #42b983;
 }
 
+*/
 .input-has-error {
   border: solid red 1px;
 }
-
 /* 
 #nav a.router-link-exact-active {
   color: #42b983;

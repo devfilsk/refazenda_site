@@ -14,7 +14,26 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "presentation",
+    meta: { layout: "userpages" },
     component: Presentation
+  },
+  {
+    path: "/login",
+    name: "Login",
+    meta: { layout: "userpages" },
+    component: Login
+  },
+  {
+    path: "/cadastrar",
+    name: "signup",
+    meta: { layout: "userpages" },
+    component: SignUp
+  },
+  {
+    path: "/recuperar-senha",
+    name: "send-forgot-password",
+    meta: { layout: "userpages" },
+    component: SendForgotPassword
   },
   {
     path: "/panel",
@@ -29,31 +48,16 @@ const routes: Array<RouteConfig> = [
         component: Dashboard
       },
       {
-        path: "/farm/create",
+        path: "/propriedades/criar",
         name: "farm-create",
         component: FarmCreate
       },
       {
-        path: "/farm/:id",
+        path: "/propriedades/:id",
         name: "farm-show",
         component: FarmCreate
       }
     ]
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: Login
-  },
-  {
-    path: "/cadastrar",
-    name: "signup",
-    component: SignUp
-  },
-  {
-    path: "/recuperar-senha",
-    name: "send-forgot-password",
-    component: SendForgotPassword
   }
   // {
   //   path: "/about",
