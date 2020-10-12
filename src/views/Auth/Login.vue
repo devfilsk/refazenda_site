@@ -6,7 +6,7 @@
           <div class="app-logo-inverse mx-auto mb-3" />
 
           <div class="modal-dialog w-100 mx-auto">
-            <div class="modal-content">
+            <b-form class="modal-content">
               <div class="modal-body">
                 <div class="h5 modal-title text-center">
                   <h4 class="mt-2">
@@ -28,8 +28,7 @@
                     :class="{ 'input-has-error': $v.email.$error }"
                     @change="$v.email.$touch()"
                     v-model="email"
-                  >
-                  </b-form-input>
+                  ></b-form-input>
                 </b-form-group>
                 <b-form-group id="exampleInputGroup2" label-for="exampleInput2">
                   <b-form-input
@@ -41,19 +40,13 @@
                     :class="{ 'input-has-error': $v.password.$error }"
                     @change="$v.password.$touch()"
                     v-model="password"
-                  >
-                  </b-form-input>
+                  ></b-form-input>
                 </b-form-group>
-                <b-form-checkbox name="check" id="exampleCheck">
-                  Me mantenha logado
-                </b-form-checkbox>
+                <b-form-checkbox name="check" id="exampleCheck">Me mantenha logado</b-form-checkbox>
                 <div class="divider" />
                 <h6 class="mb-0">
                   Ainda não é cadastrado?
-
-                  <router-link class="text-primary" :to="{ name: 'signup' }"
-                    >Cadastre-se</router-link
-                  >
+                  <router-link class="text-primary" :to="{ name: 'signup' }">Cadastre-se</router-link>
                 </h6>
               </div>
               <div class="modal-footer clearfix">
@@ -61,20 +54,20 @@
                   <router-link
                     class="btn-lg btn btn-link"
                     :to="{ name: 'send-forgot-password' }"
-                    >Esqueceu a senha?</router-link
-                  >
+                  >Esqueceu a senha?</router-link>
                 </div>
                 <div class="float-right">
-                  <b-button variant="primary" size="lg" @click.prevent="logar"
-                    >Acessar o sistema</b-button
-                  >
+                  <b-button
+                    type="submit"
+                    variant="primary"
+                    size="lg"
+                    @click.prevent="logar"
+                  >Acessar o sistema</b-button>
                 </div>
               </div>
-            </div>
+            </b-form>
           </div>
-          <div class="text-center text-white opacity-8 mt-3">
-            Copyright &copy; Refazenda 2020
-          </div>
+          <div class="text-center text-white opacity-8 mt-3">Copyright &copy; Refazenda 2020</div>
         </b-col>
       </div>
     </div>

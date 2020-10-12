@@ -6,7 +6,10 @@ import SignUp from "@/views/Auth/SignUp.vue";
 import SendForgotPassword from "@/views/Auth/SendForgotPassword.vue";
 import Dashboard from "@/views/App/Dashboard/Dashboard.vue";
 import FarmCreate from "@/views/App/Farm/FarmCreate.vue";
+import FarmList from "@/views/App/Farm/FarmList.vue";
 import Presentation from "@/views/Presentation/Presentation.vue";
+
+import { TOKEN_LABEL } from "@/services/api";
 
 Vue.use(VueRouter);
 
@@ -53,9 +56,20 @@ const routes: Array<RouteConfig> = [
         component: FarmCreate
       },
       {
+        path: "/propriedades/editar/:id",
+        name: "farm-edit",
+        component: () => import("@/views/App/Farm/FarmEdit.vue")
+      },
+      {
         path: "/propriedades/:id",
         name: "farm-show",
-        component: FarmCreate
+        params: true,
+        component: () => import("@/views/App/Farm/FarmShow.vue")
+      },
+      {
+        path: "/propriedades",
+        name: "farm-list",
+        component: FarmList
       }
     ]
   }
@@ -73,7 +87,22 @@ const routes: Array<RouteConfig> = [
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior() {
+    return window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.login)) {
+    if (!localStorage.getItem(TOKEN_LABEL)) {
+      next("/login");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 // router.beforeEach((to, from, next) => {

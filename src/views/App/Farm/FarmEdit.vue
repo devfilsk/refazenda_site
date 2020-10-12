@@ -1,15 +1,15 @@
 <template>
   <div class="content">
     <page-title
-      heading="Criar sua fazenda"
-      subheading="Cadastre uma nova fazenda e tenha todos os dados da sua produção facilmente."
+      heading="Editar sua fazenda"
+      subheading="Alterar dados da fazenda."
       icon="pe-7s-graph text-success"
     ></page-title>
     <div class="main-card mb-3 card">
       <div class="card-body">
         <!-- <h5 class="card-title">Grid Rows</h5> -->
         <Form ref="form" :form="form" @submit.prevent>
-          <button @click.prevent="criarFazenda" class="mt-2 btn btn-primary">Cadastrar</button>
+          <button @click.prevent="editarFazenda" class="mt-2 btn btn-primary">Editar</button>
         </Form>
       </div>
     </div>
@@ -24,9 +24,10 @@ import { mapActions } from "vuex";
 import PageTitle from "@/Layout/Components/PageTitle.vue";
 
 import Form from "./components/form";
+import { api } from "@/services/api";
 
 export default {
-  name: "FarmCreate",
+  name: "FarmEdit",
   components: {
     PageTitle,
     Form
@@ -40,27 +41,34 @@ export default {
         billing_address: "",
         production_area: "",
         production_type: "",
-        edit: false
+        id: ""
       }
     };
   },
   created() {
-    console.log("ROUTER", this.$route);
-    if (this.$route.params.id) {
-      this.edit = true;
-    }
+    this.id = this.$route.params.id;
+    this.getFarm();
   },
   methods: {
-    ...mapActions("farm", ["createFarm"]),
-    criarFazenda() {
+    ...mapActions("farm", ["editFarm"]),
+    async getFarm() {
+      await api
+        .get(`farm/${this.id}`)
+        .then(res => res)
+        .then(res => {
+          console.log("OPA", res);
+          this.form = { ...res.data };
+        });
+    },
+    editarFazenda() {
       this.$refs.form
         .submit()
         .then(payload => {
           console.log("AQUI", this.$refs.form.model);
-          this.createFarm(this.$refs.form.model)
+          this.editFarm(this.$refs.form.model)
             .then(response => {
               if (response.status === 201) {
-                this.$toast.open("Fazenda criada com sucesso!");
+                this.$toast.open("Fazenda editado com sucesso!");
                 this.$router.push({
                   name: "farm-show",
                   params: { id: response.data.id }

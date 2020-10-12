@@ -55,24 +55,24 @@ export default {
           header: true,
           title: "Minhas Propriedades"
         },
+
         {
-          title: "Cadastrar Propriedade",
-          icon: "pe-7s-map-2",
-          href: "/propriedade/criar"
-        },
-        {
-          title: "Todas As Propriedades",
+          title: "Todas as Propriedades",
           icon: "pe-7s-news-paper",
           href: "/propriedades"
         },
-
+        {
+          title: "Cadastrar Propriedade",
+          icon: "pe-7s-map-2",
+          href: "/propriedades/criar"
+        },
         {
           header: true,
           title: "Animais"
         },
         {
           icon: "pe-7s-news-paper",
-          title: "Todos Os Animais",
+          title: "Todos os Animais",
           href: "/animais"
         },
         {
