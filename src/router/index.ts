@@ -63,7 +63,6 @@ const routes: Array<RouteConfig> = [
       {
         path: "/propriedades/:id",
         name: "farm-show",
-        params: true,
         component: () => import("@/views/App/Farm/FarmShow.vue")
       },
       {
