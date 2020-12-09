@@ -28,11 +28,11 @@
               </button>
               <h6 tabindex="-1" class="dropdown-header">Header</h6>
               <button type="button" tabindex="0" class="dropdown-item">
-                Actions
+                Fazenda Padrão
               </button>
               <div tabindex="-1" class="dropdown-divider"></div>
-              <button type="button" tabindex="0" class="dropdown-item">
-                Dividers
+              <button type="button" tabindex="0" class="dropdown-item" @click="logout">
+                Sair
               </button>
             </b-dropdown>
           </div>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -98,6 +98,12 @@ export default {
   computed: {
     ...mapState("auth", ["user"])
   },
-  methods: {}
+  methods: {
+    ...mapActions("auth", ["deslogarUsuario"]),
+    logout() {
+      this.deslogarUsuario();
+      this.$router.push("/");
+    }
+  }
 };
 </script>

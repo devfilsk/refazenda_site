@@ -24,6 +24,7 @@ export const actions = {
   deslogarUsuario(context: any) {
     context.commit("UPDATE_USUARIO", {});
     context.commit("UPDATE_LOGIN", false);
+    localStorage.removeItem(TOKEN_LABEL);
   }
 };
 
