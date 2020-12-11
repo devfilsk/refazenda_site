@@ -20,25 +20,34 @@
                   />
                 </div>
               </span>
-              <button type="button" tabindex="0" class="dropdown-item">
-                Menus
-              </button>
+              <router-link class="dropdown-item" :to="{ name: 'user-profile' }">Perfil</router-link>
               <button type="button" tabindex="0" class="dropdown-item">
                 Settings
               </button>
               <h6 tabindex="-1" class="dropdown-header">Header</h6>
-              <button type="button" tabindex="0" class="dropdown-item">
+              <button
+                type="button"
+                tabindex="0"
+                class="dropdown-item"
+                v-b-modal.modal-1
+                @click="getFarms"
+              >
                 Fazenda Padrão
               </button>
               <div tabindex="-1" class="dropdown-divider"></div>
-              <button type="button" tabindex="0" class="dropdown-item" @click="logout">
+              <button
+                type="button"
+                tabindex="0"
+                class="dropdown-item"
+                @click="logout"
+              >
                 Sair
               </button>
             </b-dropdown>
           </div>
           <div class="widget-content-left  ml-3 header-user-info">
             <div class="widget-heading">{{ user.name }}</div>
-            <div class="widget-subheading">VP People Manager</div>
+            <div class="widget-subheading">{{ farm.name }}</div>
           </div>
           <div class="widget-content-right header-user-info ml-3">
             <b-btn
@@ -54,6 +63,41 @@
         </div>
       </div>
     </div>
+
+    <b-modal id="modal-1" size="md" title="Alterar fazenda padrão" hide-footer no-stacking>
+      <div class="d-block text-center">
+        <h4>Selecione uma fazenda:</h4>
+        <br />
+        <multiselect
+          v-model="farmSelected"
+          :value="farmSelected"
+          deselect-label="Selecione outra para remover"
+          track-by="name"
+          label="name"
+          placeholder="Selecione uma"
+          :options="farms"
+          :searchable="false"
+          :allow-empty="false"
+          selectLabel="Pressione enter"
+          selectedLabel="SELECIONADO"
+          :custom-label="nameWithState"
+        >
+          <template slot="singleLabel" slot-scope="{ option }"
+            ><strong>{{ option.name }}</strong> Estado:
+            <strong> {{ option.state_registration }}</strong></template
+          >
+        </multiselect>
+      </div>
+      <br />
+      <b-button class="mt-3" block @click="saveDefaultFarm" :disabled="loading">
+        Salvar
+        <b-spinner
+          v-if="loading"
+          variant="primary"
+          label="Text Centered"
+        ></b-spinner>
+      </b-button>
+    </b-modal>
   </div>
 </template>
 
@@ -75,6 +119,8 @@ import {
   faEllipsisH
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Multiselect from "vue-multiselect";
+import { api } from "../../../services/api";
 
 library.add(
   faAngleDown,
@@ -92,17 +138,51 @@ library.add(
 export default {
   components: {
     VuePerfectScrollbar,
-    "font-awesome-icon": FontAwesomeIcon
+    "font-awesome-icon": FontAwesomeIcon,
+    Multiselect
   },
-  data: () => ({}),
+  data: () => {
+    return {
+      loading: false,
+      farms: [],
+      farmSelected: null
+    };
+  },
+  created() {
+    this.farmSelected = this.farm;
+  },
   computed: {
-    ...mapState("auth", ["user"])
+    ...mapState("auth", ["user"]),
+    ...mapState("farm", ["farm"])
   },
   methods: {
     ...mapActions("auth", ["deslogarUsuario"]),
+    ...mapActions("farm", ["getUserFarms", "updateFarm"]),
+    getFarms() {
+      this.getUserFarms()
+        .then(res => res)
+        .then(res => {
+          this.farms = res.data;
+          console.log("FARMSSS", res);
+        });
+    },
+    async saveDefaultFarm() {
+      this.loading = true;
+      const response = await api.put(`tenant/${this.farmSelected.id}`);
+      console.log("RESPONSE => ", response);
+      this.loading = false;
+      if (response.status === 201) {
+        this.$toast.open("Fazenda padrão alterada com sucesso!");
+        this.$bvModal.hide("modal-1");
+        this.updateFarm(this.farmSelected);
+      }
+    },
     logout() {
       this.deslogarUsuario();
       this.$router.push("/");
+    },
+    nameWithState({ name, state_registration }) {
+      return `${name} | ${state_registration}`;
     }
   }
 };

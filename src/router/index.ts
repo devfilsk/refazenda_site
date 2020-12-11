@@ -69,6 +69,11 @@ const routes: Array<RouteConfig> = [
         path: "/propriedades",
         name: "farm-list",
         component: FarmList
+      },
+      {
+        path: "/usuario/perfil",
+        name: "user-profile",
+        component: () => import('@/views/App/User/Profile/Profile.vue')
       }
     ]
   }

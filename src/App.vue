@@ -10,16 +10,37 @@
 
 <script>
 const default_layout = "default";
+import { api, TOKEN_LABEL } from "@/services/api";
+import { mapActions } from "vuex";
 
 export default {
   computed: {
     layout() {
       return (this.$route.meta.layout || default_layout) + "-layout";
     }
+  },
+  created() {
+    console.log("OPA");
+
+    if (window.localStorage.getItem(TOKEN_LABEL)) {
+      this.getLoggededUser()
+        .then(res => {
+          console.log("OPA", res.data);
+          this.setUser(res.data.user);
+          this.updateFarm(res.data.farm);
+        })
+        .catch(() => {
+          window.localStorage.removeItem(TOKEN_LABEL);
+        });
+    }
+  },
+  methods: {
+    ...mapActions("auth", ["getLoggededUser", "setUser"]),
+    ...mapActions("farm", ["getCurrentFarm", "updateFarm"])
   }
 };
 </script>
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style lang="scss">
 @import "assets/base.scss";
 </style>

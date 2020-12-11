@@ -25,6 +25,12 @@ export const actions = {
     context.commit("UPDATE_USUARIO", {});
     context.commit("UPDATE_LOGIN", false);
     localStorage.removeItem(TOKEN_LABEL);
+  },
+  getLoggededUser(context: any, payload: any) {
+    return api.get("user/me");
+  },
+  setUser(context: any, payload: any) {
+    context.commit("UPDATE_USUARIO", payload);
   }
 };
 

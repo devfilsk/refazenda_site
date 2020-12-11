@@ -5,17 +5,6 @@
       <div class="app-header-left">
         <SearchBox />
       </div>
-      <!-- <b-input-group> -->
-      <!-- <b-dropdown text="Dropdown" variant="info" slot="prepend" v-for="i in 1" :key="i">
-                                    <b-dropdown-item>Action A</b-dropdown-item>
-                                    <b-dropdown-item>Action B</b-dropdown-item>
-      </b-dropdown>-->
-
-      <b-dropdown text="Dropdown" variant="outline-secondary" slot="append" v-for="i in 1" :key="i">
-        <b-dropdown-item>Fazenda 01</b-dropdown-item>
-        <b-dropdown-item>Fazenda 02</b-dropdown-item>
-      </b-dropdown>
-      <!-- </b-input-group> -->
       <div class="app-header-right">
         <UserArea />
       </div>
