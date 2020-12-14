@@ -1,7 +1,7 @@
 import { api, TOKEN_LABEL } from "../../../services/api";
 
 const state = () => ({
-  user: Object,
+  user: null,
   login: false
 });
 
@@ -10,8 +10,9 @@ export const actions = {
     return api.post(`/register`, payload).then((response: any) => response);
   },
   loginUser(context: any, payload: any) {
+    console.log("Teste", context.rootState);
+
     return api.post(`/login`, payload).then((response: any) => {
-      console.log("DADOS", response);
       context.commit("UPDATE_USUARIO", response.data.user);
       context.commit("UPDATE_LOGIN", true);
       context.commit("UPDATE_TOKEN", response.data.token);
@@ -31,6 +32,15 @@ export const actions = {
   },
   setUser(context: any, payload: any) {
     context.commit("UPDATE_USUARIO", payload);
+  },
+  loadInitialContext({ commit, rootState}) {
+    api.get("user/me").then(res => {
+      if(res.status === 200) {
+        console.log("ROOTSTATE", rootState)
+        rootState.farm.farm = res.data.farm;
+        rootState.auth.user = res.data.user;
+      }
+    })
   }
 };
 

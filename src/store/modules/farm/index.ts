@@ -1,7 +1,9 @@
 import { api, TOKEN_LABEL } from "../../../services/api";
 
-const state = () => ({
-  farm: Object,
+import FarmContext from "@/interfaces/FarmContext";
+
+const state = <FarmContext>() => ({
+  farm: null,
   selected: false
 });
 
@@ -32,6 +34,14 @@ export const actions = {
   },
   getCurrentFarm(context: any, payload: any) {
     return api.get("tenant/farm");
+  },
+  setFarmTenant(context: any, payload: any) {
+    return api.put(`farmtenant/${payload}`).then(res => {
+      if (res.status === 201) {
+        context.commit("UPDATE_FARM", res.data.farm);
+      }
+      return res;
+    });
   }
 };
 

@@ -4,26 +4,14 @@
       <div class="widget-content p-0">
         <div class="widget-content-wrapper">
           <div class="widget-content-left">
-            <b-dropdown
-              toggle-class="p-0 mr-2"
-              menu-class="dropdown-menu-lg"
-              variant="link"
-              right
-            >
+            <b-dropdown toggle-class="p-0 mr-2" menu-class="dropdown-menu-lg" variant="link" right>
               <span slot="button-content">
                 <div class="icon-wrapper icon-wrapper-alt rounded-circle">
-                  <img
-                    width="42"
-                    class="rounded-circle"
-                    src="@/assets/images/avatars/1.jpg"
-                    alt=""
-                  />
+                  <img width="42" class="rounded-circle" src="@/assets/images/avatars/1.jpg" alt />
                 </div>
               </span>
               <router-link class="dropdown-item" :to="{ name: 'user-profile' }">Perfil</router-link>
-              <button type="button" tabindex="0" class="dropdown-item">
-                Settings
-              </button>
+              <button type="button" tabindex="0" class="dropdown-item">Settings</button>
               <h6 tabindex="-1" class="dropdown-header">Header</h6>
               <button
                 type="button"
@@ -31,23 +19,14 @@
                 class="dropdown-item"
                 v-b-modal.modal-1
                 @click="getFarms"
-              >
-                Fazenda Padrão
-              </button>
+              >Fazenda Padrão</button>
               <div tabindex="-1" class="dropdown-divider"></div>
-              <button
-                type="button"
-                tabindex="0"
-                class="dropdown-item"
-                @click="logout"
-              >
-                Sair
-              </button>
+              <button type="button" tabindex="0" class="dropdown-item" @click="logout">Sair</button>
             </b-dropdown>
           </div>
-          <div class="widget-content-left  ml-3 header-user-info">
-            <div class="widget-heading">{{ user.name }}</div>
-            <div class="widget-subheading">{{ farm.name }}</div>
+          <div class="widget-content-left ml-3 header-user-info">
+            <div class="widget-heading">{{ user ? user.name : 'Carregando...' }}</div>
+            <div class="widget-subheading">{{ farm ? farm.name : "" }}</div>
           </div>
           <div class="widget-content-right header-user-info ml-3">
             <b-btn
@@ -82,20 +61,16 @@
           selectedLabel="SELECIONADO"
           :custom-label="nameWithState"
         >
-          <template slot="singleLabel" slot-scope="{ option }"
-            ><strong>{{ option.name }}</strong> Estado:
-            <strong> {{ option.state_registration }}</strong></template
-          >
+          <template slot="singleLabel" slot-scope="{ option }">
+            <strong>{{ option.name }}</strong> Estado:
+            <strong>{{ option.state_registration }}</strong>
+          </template>
         </multiselect>
       </div>
       <br />
       <b-button class="mt-3" block @click="saveDefaultFarm" :disabled="loading">
         Salvar
-        <b-spinner
-          v-if="loading"
-          variant="primary"
-          label="Text Centered"
-        ></b-spinner>
+        <b-spinner v-if="loading" variant="primary" label="Text Centered"></b-spinner>
       </b-button>
     </b-modal>
   </div>
@@ -179,6 +154,7 @@ export default {
     },
     logout() {
       this.deslogarUsuario();
+      this.$router.go();
       this.$router.push("/");
     },
     nameWithState({ name, state_registration }) {

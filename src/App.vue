@@ -20,12 +20,9 @@ export default {
     }
   },
   created() {
-    console.log("OPA");
-
     if (window.localStorage.getItem(TOKEN_LABEL)) {
       this.getLoggededUser()
         .then(res => {
-          console.log("OPA", res.data);
           this.setUser(res.data.user);
           this.updateFarm(res.data.farm);
         })
@@ -134,6 +131,10 @@ textarea:focus {
 */
 .input-has-error {
   border: solid red 1px;
+}
+
+.yellow {
+  color: #fdb827;
 }
 /* 
 #nav a.router-link-exact-active {

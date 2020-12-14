@@ -87,16 +87,19 @@ export default {
     };
   },
   methods: {
-    ...mapActions("auth", ["loginUser"]),
+    ...mapActions("auth", ["loginUser", "loadInitialContext"]),
     logar() {
       if (!this.$v.$invalid) {
         this.loginUser({ email: this.email, password: this.password })
           .then(response => {
-            console.log("AUTH", response);
-            this.$toast.open("Login realizado com sucesso!");
+            console.log("RES", response)
+            this.$toast.open(`Bem vindo(a)!`);
             this.$router.push("/panel");
+            this.loadInitialContext();
+            // this.$router.go();
           })
           .catch(e => {
+            console.log("A", e.response)
             this.$toast.open({
               message: e.response.data.message,
               type: "error"
