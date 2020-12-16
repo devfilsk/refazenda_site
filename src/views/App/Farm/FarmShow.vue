@@ -18,9 +18,10 @@
       <router-link
         :to="{ name: 'farm-edit', params: { id: currentfarm ? currentfarm.id : ''}}"
         type="button"
-        class="btn-shadow d-inline-flex align-items-center btn btn-success"
+        class="btn-shadow d-inline-flex align-items-center btn btn-success text-white"
       >
-        <font-awesome-icon class="mr-2" icon="fa-pen" />Editar Fazenda
+        <!-- <font-awesome-icon class="mr-2" icon="fa-pen" /> -->
+        <strong> Editar Fazenda</strong>
       </router-link>
     </page-title>
     <div class="card mb-3">

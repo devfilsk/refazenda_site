@@ -8,6 +8,7 @@ import Dashboard from "@/views/App/Dashboard/Dashboard.vue";
 import FarmCreate from "@/views/App/Farm/FarmCreate.vue";
 import FarmList from "@/views/App/Farm/FarmList.vue";
 import Presentation from "@/views/Presentation/Presentation.vue";
+import FarmShow from "@/views/App/Farm/FarmShow.vue";
 
 import { TOKEN_LABEL } from "@/services/api";
 
@@ -58,12 +59,15 @@ const routes: Array<RouteConfig> = [
       {
         path: "/propriedades/editar/:id",
         name: "farm-edit",
-        component: () => import("@/views/App/Farm/FarmEdit.vue")
+        component: () => import("@/views/App/Farm/FarmEdit.vue"),
+        props: true
       },
       {
         path: "/propriedades/:id",
         name: "farm-show",
-        component: () => import("@/views/App/Farm/FarmShow.vue")
+        component: FarmShow,
+        // component: () => import("@/views/App/Farm/FarmShow.vue"),
+        props: true
       },
       {
         path: "/propriedades",
