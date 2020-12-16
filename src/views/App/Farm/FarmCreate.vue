@@ -61,10 +61,10 @@ export default {
             .then(response => {
               if (response.status === 201) {
                 this.$toast.open("Fazenda criada com sucesso!");
-                this.$router.push({
-                  name: "farm-show",
-                  params: { id: response.data.id }
-                });
+                // this.$router.push({
+                //   name: "farm-show",
+                //   params: { id: response.data.id }
+                // });
               }
             })
             .catch(err => {
