@@ -32,6 +32,11 @@ export const actions = {
   },
   setUser(context: any, payload: any) {
     context.commit("UPDATE_USUARIO", payload);
+    if(payload) {
+      context.commit("UPDATE_LOGIN", true);
+    }else{
+      context.commit("UPDATE_LOGIN", false);
+    }
   },
   loadInitialContext({ commit, rootState}) {
     api.get("user/me").then(res => {

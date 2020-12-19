@@ -102,6 +102,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem(TOKEN_LABEL);
+  if (to.name == 'Login' && token) {
+    next({ path: '/dashboard' })
+  }
   if (to.matched.some(record => record.meta.login)) {
     if (!localStorage.getItem(TOKEN_LABEL)) {
       next("/login");

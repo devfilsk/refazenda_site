@@ -23,6 +23,7 @@ export default {
     if (window.localStorage.getItem(TOKEN_LABEL)) {
       this.getLoggededUser()
         .then(res => {
+          console.log("CAD", res)
           this.setUser(res.data.user);
           this.updateFarm(res.data.farm);
         })
