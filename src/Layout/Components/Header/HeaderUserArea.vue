@@ -7,7 +7,8 @@
             <b-dropdown toggle-class="p-0 mr-2" menu-class="dropdown-menu-lg" variant="link" right>
               <span slot="button-content">
                 <div class="icon-wrapper icon-wrapper-alt rounded-circle">
-                  <img width="42" class="rounded-circle" src="@/assets/images/avatars/1.jpg" alt />
+                  <img v-if="user.picture" width="42" height="42" class="rounded-circle" :src="user.picture ? user.picture : '@/assets/images/avatars/user-circle-solid.svg'" />
+                  <img v-else width="42" height="42" class="rounded-circle" src="@/assets/images/avatars/user-circle-solid.svg" />
                 </div>
               </span>
               <router-link class="dropdown-item" :to="{ name: 'user-profile' }">Perfil</router-link>

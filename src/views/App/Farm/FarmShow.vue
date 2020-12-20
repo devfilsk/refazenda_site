@@ -116,8 +116,6 @@ export default {
     makeMainFarm() {
       this.setFarmTenant(this.currentfarm.id).then(res => {
         if (res.status === 201) {
-          console.log("RESs->", res);
-
           this.$toast.open(`${res.data.farm.name} foi definida como padrão`);
         }
       });
