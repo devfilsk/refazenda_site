@@ -45,13 +45,13 @@
     <b-button
       class="mt-3 btn-success text-white"
       block
-      @click="saveDefaultFarm"
+      @click="editUser"
       :disabled="loading"
     >
       Salvar
       <b-spinner
         v-if="loading"
-        variant="primary"
+        variant="light"
         label="Text Centered"
       ></b-spinner>
     </b-button>
@@ -63,6 +63,16 @@ export default {
   name: "ModalEditUser",
   props: {
     user: null
+  },
+  data() {
+    return {
+      loading: false
+    }  
+  },
+  methods: {
+    editUser() {
+      
+    }
   }
 };
 </script>

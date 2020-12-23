@@ -112,8 +112,14 @@
                   color="primary"
                   class="btn-wide btn-pill btn-shadow btn-hover-shine"
                   size="lg"
+                  :disabled="isLoading"
                   @click.prevent="storeNewUser"
                   >Criar Conta
+                  <b-spinner
+                      v-if="isLoading"
+                      variant="light"
+                      label="Text Centered"
+                    ></b-spinner>
                 </b-button>
               </div>
             </div>
@@ -141,7 +147,8 @@ export default {
       name: "",
       email: "",
       password: "",
-      password_confirmation: ""
+      password_confirmation: "",
+      isLoading: false,
       // cpf: ""
     };
   },

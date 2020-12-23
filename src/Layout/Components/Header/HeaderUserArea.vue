@@ -7,7 +7,7 @@
             <b-dropdown toggle-class="p-0 mr-2" menu-class="dropdown-menu-lg" variant="link" right>
               <span slot="button-content">
                 <div class="icon-wrapper icon-wrapper-alt rounded-circle">
-                  <img v-if="user.picture" width="42" height="42" class="rounded-circle" :src="user.picture ? user.picture : '@/assets/images/avatars/user-circle-solid.svg'" />
+                  <img v-if="user && user.picture" width="42" height="42" class="rounded-circle" :src="user.picture ? user.picture : '@/assets/images/avatars/user-circle-solid.svg'" />
                   <img v-else width="42" height="42" class="rounded-circle" src="@/assets/images/avatars/user-circle-solid.svg" />
                 </div>
               </span>
@@ -71,7 +71,7 @@
       <br />
       <b-button class="mt-3" block @click="saveDefaultFarm" :disabled="loading">
         Salvar
-        <b-spinner v-if="loading" variant="primary" label="Text Centered"></b-spinner>
+        <b-spinner v-if="loading" variant="light" label="Text Centered"></b-spinner>
       </b-button>
     </b-modal>
   </div>

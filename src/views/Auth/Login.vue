@@ -61,8 +61,15 @@
                     type="submit"
                     variant="primary"
                     size="lg"
+                    :disabled="isLoading"
                     @click.prevent="logar"
-                  >Acessar o sistema</b-button>
+                  >Acessar o sistema
+                   <b-spinner
+                      v-if="isLoading"
+                      variant="light"
+                      label="Text Centered"
+                    ></b-spinner>
+                  </b-button>
                 </div>
               </div>
             </b-form>
@@ -83,23 +90,27 @@ export default {
     return {
       email: "",
       password: "",
-      erros: []
+      erros: [],
+      isLoading: false
     };
   },
   methods: {
     ...mapActions("auth", ["loginUser", "loadInitialContext"]),
     logar() {
       if (!this.$v.$invalid) {
+        this.isLoading = true;
         this.loginUser({ email: this.email, password: this.password })
           .then(response => {
             console.log("RES", response)
             this.$toast.open(`Bem vindo(a)!`);
             this.$router.push("/panel");
             this.loadInitialContext();
+            this.isLoading = false;
             // this.$router.go();
           })
           .catch(e => {
             console.log("A", e.response)
+            this.isLoading = false;
             this.$toast.open({
               message: e.response.data.message,
               type: "error"

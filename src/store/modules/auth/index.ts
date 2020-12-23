@@ -1,9 +1,16 @@
 import { api, TOKEN_LABEL } from "../../../services/api";
 
-const state = () => ({
-  user: null,
+export type State = {
+  user: {
+    name: string,
+  },
+  login: boolean
+}
+
+const state: State = {
+  user: Object,
   login: false
-});
+};
 
 export const actions = {
   createUser(context: any, payload: any) {
@@ -46,6 +53,9 @@ export const actions = {
         rootState.auth.user = res.data.user;
       }
     })
+  },
+  updateUser(context: any, payload: any) {
+    context.commit("UPDATE_USUARIO", payload);
   }
 };
 
@@ -54,7 +64,7 @@ export const mutations = {
     state.login = payload;
   },
   UPDATE_USUARIO(state: any, payload: any) {
-    state.user = payload;
+    state.user = { ...state.user, ...payload};
   },
   UPDATE_TOKEN(state: any, payload: any) {
     const token = `Bearer ${payload}`;

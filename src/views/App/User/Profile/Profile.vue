@@ -18,7 +18,7 @@
               />
               <label for="profile_picture" class="user-avatar">
                 <img
-                  v-if="user.picture"
+                  v-if="user && user.picture"
                   class="rounded-circle"
                   :src="
                     user.picture
@@ -57,6 +57,7 @@
                     <strong>Nome</strong>
                     <strong>:</strong>
                     <p>{{ user.name }}</p>
+                    <p>{{ user.email }}</p>
                   </b-col>
                 </div>
               </b-tab>
@@ -79,7 +80,7 @@
 <script>
 import PageTitle from "@/Layout/Components/PageTitle.vue";
 import ModalEditUser from "../components/ModalEditUser";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { api } from "@/services/api";
 
 export default {
@@ -97,12 +98,13 @@ export default {
     ...mapState("auth", ["user"])
   },
   methods: {
+    ...mapActions("auth", ["updateUser"]),
     async onPictureSelected(event) {
       this.picture = event.target.files[0];
 
       const fd = new FormData();
       fd.append("image", this.picture, this.picture.name);
-      await api.put(`user/image/${this.user.id}`, fd, {
+      const response = await api.put(`user/image/${this.user.id}`, fd, {
         onUploadProgress: uploadEvent => {
           console.log(
             "Salvando imagem: " +
@@ -111,7 +113,7 @@ export default {
           );
         }
       });
-      console.log("f", this.picture);
+      await this.updateUser({picture: response.data.picture});
     }
   }
 };
