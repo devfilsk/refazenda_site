@@ -98,7 +98,7 @@ export default {
     ...mapState("auth", ["user"])
   },
   methods: {
-    ...mapActions("auth", ["updateUser"]),
+    ...mapActions("auth", ["updateUserData"]),
     async onPictureSelected(event) {
       this.picture = event.target.files[0];
 
@@ -113,7 +113,7 @@ export default {
           );
         }
       });
-      await this.updateUser({picture: response.data.picture});
+      await this.updateUserData({picture: response.data.picture});
     }
   }
 };

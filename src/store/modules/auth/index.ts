@@ -55,6 +55,14 @@ export const actions = {
     })
   },
   updateUser(context: any, payload: any) {
+    return api.put(`user/${context.state.user.id}`, payload).then(res => {
+      if(res.status === 201){
+        context.commit("UPDATE_USUARIO", res.data);
+      }
+      return res;
+    });
+  },
+  updateUserData(context: any, payload: any) {
     context.commit("UPDATE_USUARIO", payload);
   }
 };

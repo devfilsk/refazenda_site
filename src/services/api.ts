@@ -7,8 +7,8 @@ export const api2 = axios.create({
 });
 
 export const api = axios.create({
-  baseURL: "https://api-gado.herokuapp.com/api/v1/"
-  // baseURL: "http://localhost:3333/api/v1/"
+  // baseURL: "https://api-gado.herokuapp.com/api/v1/"
+  baseURL: "http://localhost:3333/api/v1/"
 });
 
 api.interceptors.request.use(
